@@ -1,16 +1,14 @@
 // Main ZScript loader
 #include "zscript/Config/CheatConfig.zs"
 #include "zscript/Commands/CommandHandler.zs"
-#include "zscript/Commands/Commands.zs"
 #include "zscript/Menu/CheatMenuBase.zs"
 #include "zscript/Menu/CheatMenuUI.zs"
 
-class CheatPanelEventHandler : StaticEventHandler
+class CheatPanelEventHandler : EventHandler
 {
-    override void KeyDown(InputEvent e)
+    override void KeyDown(int keyCode, bool isRepeat)
     {
-        // Open menu on F1 key (code 282)
-        if (e.KeyChar == 282)
+        if (keyCode == 282) // F1
         {
             Menu.SetMenu("CheatPanelMenu");
         }
