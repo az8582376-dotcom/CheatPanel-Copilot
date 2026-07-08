@@ -10,55 +10,57 @@ struct CheatCommand
 
 class CommandHandler
 {
-    static Array<CheatCommand> commands;
-    static bool initialized;
+    static CheatCommand commands[256];
+    static int commandCount;
 
     static void AddCommand(String id, String displayName, String category, String command)
     {
-        CheatCommand cmd;
-        cmd.id = id;
-        cmd.displayName = displayName;
-        cmd.category = category;
-        cmd.command = command;
+        if (commandCount >= 256) return;
         
-        commands.Push(cmd);
+        commands[commandCount].id = id;
+        commands[commandCount].displayName = displayName;
+        commands[commandCount].category = category;
+        commands[commandCount].command = command;
+        commandCount++;
     }
 
     static void ExecuteCommand(int index)
     {
-        if (index >= 0 && index < commands.Size())
+        if (index >= 0 && index < commandCount)
         {
             String cmd = commands[index].command;
-            Console.MidPrint("Verdana", "Executing: "..cmd, false);
+            Console.MidPrint(SmallFont, "Executing: "..cmd, false);
             C_DoCommand(cmd);
         }
     }
 
-    static Array<int> GetCommandsByCategory(String category)
+    static int GetCommandsByCategory(String category, int result[256])
     {
-        Array<int> result;
+        int count = 0;
         
-        for (int i = 0; i < commands.Size(); i++)
+        for (int i = 0; i < commandCount; i++)
         {
             if (commands[i].category ~== category)
             {
-                result.Push(i);
+                result[count] = i;
+                count++;
+                if (count >= 256) break;
             }
         }
         
-        return result;
+        return count;
     }
 
-    static Array<String> GetAllCategories()
+    static int GetAllCategories(String categories[256])
     {
-        Array<String> categories;
+        int count = 0;
         
-        for (int i = 0; i < commands.Size(); i++)
+        for (int i = 0; i < commandCount; i++)
         {
             String cat = commands[i].category;
             bool found = false;
             
-            for (int j = 0; j < categories.Size(); j++)
+            for (int j = 0; j < count; j++)
             {
                 if (categories[j] ~== cat)
                 {
@@ -67,37 +69,30 @@ class CommandHandler
                 }
             }
             
-            if (!found)
+            if (!found && count < 256)
             {
-                categories.Push(cat);
+                categories[count] = cat;
+                count++;
             }
         }
         
-        return categories;
-    }
-
-    static void Initialize()
-    {
-        if (!initialized)
-        {
-            CheatConfig.InitializeCommands();
-            initialized = true;
-        }
+        return count;
     }
 
     static CheatCommand GetCommand(int index)
     {
-        if (index >= 0 && index < commands.Size())
+        CheatCommand empty;
+        
+        if (index >= 0 && index < commandCount)
         {
             return commands[index];
         }
         
-        CheatCommand empty;
         return empty;
     }
 
     static int GetCommandCount()
     {
-        return commands.Size();
+        return commandCount;
     }
 }
