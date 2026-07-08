@@ -3,29 +3,30 @@
 class CheatPanelMenu : GenericMenu
 {
     String currentCategory;
-    Array<int> currentCommands;
+    int currentCommands[256];
+    int currentCommandCount;
     int selectedIndex;
-    int scrollOffset;
     
     override void Init(Menu parent)
     {
         Super.Init(parent);
         CommandHandler.Initialize();
         
-        Array<String> cats = CommandHandler.GetAllCategories();
-        if (cats.Size() > 0)
+        String cats[256];
+        int catCount = CommandHandler.GetAllCategories(cats);
+        
+        if (catCount > 0)
         {
             currentCategory = cats[0];
             RefreshCommands();
         }
         
         selectedIndex = 0;
-        scrollOffset = 0;
     }
 
     void RefreshCommands()
     {
-        currentCommands = CommandHandler.GetCommandsByCategory(currentCategory);
+        currentCommandCount = CommandHandler.GetCommandsByCategory(currentCategory, currentCommands);
     }
 
     override void OnReturn()
@@ -46,31 +47,31 @@ class CheatPanelMenu : GenericMenu
         {
             switch (ev.KeyChar)
             {
-                case 1:
+                case 1: // ESC
                     OnReturn();
                     return true;
                     
-                case 200:
+                case 200: // Up arrow
                     if (selectedIndex > 0) selectedIndex--;
                     return true;
                     
-                case 208:
-                    if (selectedIndex < currentCommands.Size() - 1) selectedIndex++;
+                case 208: // Down arrow
+                    if (selectedIndex < currentCommandCount - 1) selectedIndex++;
                     return true;
                     
-                case 28:
-                    if (selectedIndex >= 0 && selectedIndex < currentCommands.Size())
+                case 28: // Enter
+                    if (selectedIndex >= 0 && selectedIndex < currentCommandCount)
                     {
                         CommandHandler.ExecuteCommand(currentCommands[selectedIndex]);
                         Menu.SetMenu(NULL);
                     }
                     return true;
                     
-                case 203:
+                case 203: // Left arrow
                     SwitchToPreviousCategory();
                     return true;
                     
-                case 205:
+                case 205: // Right arrow
                     SwitchToNextCategory();
                     return true;
             }
@@ -81,8 +82,10 @@ class CheatPanelMenu : GenericMenu
 
     void SwitchToPreviousCategory()
     {
-        Array<String> cats = CommandHandler.GetAllCategories();
-        for (int i = 0; i < cats.Size(); i++)
+        String cats[256];
+        int catCount = CommandHandler.GetAllCategories(cats);
+        
+        for (int i = 0; i < catCount; i++)
         {
             if (cats[i] ~== currentCategory)
             {
@@ -92,7 +95,7 @@ class CheatPanelMenu : GenericMenu
                 }
                 else
                 {
-                    currentCategory = cats[cats.Size() - 1];
+                    currentCategory = cats[catCount - 1];
                 }
                 RefreshCommands();
                 selectedIndex = 0;
@@ -103,12 +106,14 @@ class CheatPanelMenu : GenericMenu
 
     void SwitchToNextCategory()
     {
-        Array<String> cats = CommandHandler.GetAllCategories();
-        for (int i = 0; i < cats.Size(); i++)
+        String cats[256];
+        int catCount = CommandHandler.GetAllCategories(cats);
+        
+        for (int i = 0; i < catCount; i++)
         {
             if (cats[i] ~== currentCategory)
             {
-                if (i < cats.Size() - 1)
+                if (i < catCount - 1)
                 {
                     currentCategory = cats[i + 1];
                 }
