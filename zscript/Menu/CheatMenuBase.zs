@@ -51,19 +51,19 @@ class CheatPanelMenu : GenericMenu
         {
             switch (ev.KeyChar)
             {
-                case UIEvent.Key_Escape:
+                case 1: // ESC
                     OnReturn();
                     return true;
                     
-                case UIEvent.Key_Up:
+                case 200: // Up arrow
                     if (selectedIndex > 0) selectedIndex--;
                     return true;
                     
-                case UIEvent.Key_Down:
+                case 208: // Down arrow
                     if (selectedIndex < currentCommands.Size() - 1) selectedIndex++;
                     return true;
                     
-                case UIEvent.Key_Enter:
+                case 28: // Enter
                     if (selectedIndex >= 0 && selectedIndex < currentCommands.Size())
                     {
                         CommandHandler.ExecuteCommand(currentCommands[selectedIndex]);
@@ -71,11 +71,11 @@ class CheatPanelMenu : GenericMenu
                     }
                     return true;
                     
-                case UIEvent.Key_Left:
+                case 203: // Left arrow
                     SwitchToPreviousCategory();
                     return true;
                     
-                case UIEvent.Key_Right:
+                case 205: // Right arrow
                     SwitchToNextCategory();
                     return true;
             }
