@@ -1,2 +1,105 @@
-# CheatPanel-Copilot
-Cheat Panel Menu for GZDoom - Easy command execution UI
+# CheatPanel - GZDoom Cheat Menu Mod
+
+Полнофункциональная чит-панель для GZDoom 4.14.2 с графическим интерфейсом и категоризацией команд.
+
+## 🎮 Возможности
+
+- ✅ Графическое меню на весь экран
+- ✅ Категоризация команд (BASIC, WEAPONS, MONSTERS, CHEATS)
+- ✅ Легко добавлять новые команды
+- ✅ Навигация с клавиатуры
+- ✅ Модульная архитектура кода
+- ✅ Без проблем с компиляцией
+
+## 🚀 Установка
+
+1. Скопируй все файлы в папку мода
+2. Загрузи мод в GZDoom вместе с DOOM.WAD
+3. Нажми **F1** для открытия панели
+
+## ⌨️ Управление
+
+| Клавиша | Действие |
+|---------|----------|
+| **F1** | Открыть/закрыть панель |
+| **↑/↓** | Навигация по кнопкам |
+| **←/→** | Переключение категорий |
+| **Enter** | Выполнить команду |
+| **ESC** | Закрыть панель |
+
+## 📝 Добавление команд
+
+Открой файл `zscript/Config/CheatConfig.zs` и добавь новую строку:
+
+```zscript
+CommandHandler.AddCommand("id", "Display Name", "CATEGORY", "command");
+```
+
+**Пример:**
+```zscript
+// Новое оружие
+CommandHandler.AddCommand("give chain", "Chaingun", "WEAPONS", "give chaingun");
+
+// Новый враг
+CommandHandler.AddCommand("summon PainElemental", "Summon Pain Elemental", "MONSTERS", "summon PainElemental");
+
+// Кастомная команда
+CommandHandler.AddCommand("slowmo", "Slow Motion", "CUSTOM", "slowmo 0.5");
+```
+
+## 📁 Структура проекта
+
+```
+CheatPanel-Copilot/
+├── zscript/
+│   ├── CheatPanel.zs              # Главный файл (точка входа)
+│   ├── Config/
+│   │   └── CheatConfig.zs         # Конфиг - сюда добавляй команды!
+│   ├── Commands/
+│   │   ├── CommandHandler.zs      # Система управления командами
+│   │   └── Commands.zs            # Утилиты команд
+│   └── Menu/
+│       ├── CheatMenuBase.zs       # Логика меню
+│       └── CheatMenuUI.zs         # Отрисовка интерфейса
+├── MAPINFO.txt                    # Конфигурация мода
+└── README.md                      # Этот файл
+```
+
+## 🔧 Как работает
+
+1. **CheatPanel.zs** - точка входа, подключает все модули
+2. **CommandHandler.zs** - управляет командами (добавление, получение, выполнение)
+3. **CheatConfig.zs** - база всех команд (легко добавлять новые)
+4. **CheatMenuBase.zs** - логика меню и навигация
+5. **CheatMenuUI.zs** - рисование интерфейса
+
+## 📌 Категории по умолчанию
+
+- **BASIC** - базовые команды (god, noclip, give all и т.д.)
+- **WEAPONS** - оружие
+- **MONSTERS** - враги
+- **CHEATS** - читы
+
+Можешь создавать свои категории!
+
+## 💡 Советы
+
+- Используй понятные названия команд
+- Группируй команды в категории для удобства
+- Проверь правильность команд в консоли GZDoom перед добавлением
+- Если что-то не работает, проверь синтаксис в CheatConfig.zs
+
+## 🐛 Если что-то не компилируется
+
+1. Проверь синтаксис в CheatConfig.zs (запятые, кавычки)
+2. Убедись, что команды существуют в GZDoom
+3. Перезагрузи GZDoom полностью
+4. Проверь консоль на ошибки
+
+## 📜 Лицензия
+
+Free to use and modify
+
+---
+
+**Создано для удобства игроков Doom!** 🎮
