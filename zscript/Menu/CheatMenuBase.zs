@@ -7,16 +7,11 @@ class CheatPanelMenu : GenericMenu
     int selectedIndex;
     int scrollOffset;
     
-    const int BUTTONS_PER_PAGE = 10;
-    const int BUTTON_HEIGHT = 30;
-    const int BUTTON_WIDTH = 400;
-    
     override void Init(Menu parent)
     {
         Super.Init(parent);
         CommandHandler.Initialize();
         
-        // Start with first category
         Array<String> cats = CommandHandler.GetAllCategories();
         if (cats.Size() > 0)
         {
@@ -51,19 +46,19 @@ class CheatPanelMenu : GenericMenu
         {
             switch (ev.KeyChar)
             {
-                case 1: // ESC
+                case 1:
                     OnReturn();
                     return true;
                     
-                case 200: // Up arrow
+                case 200:
                     if (selectedIndex > 0) selectedIndex--;
                     return true;
                     
-                case 208: // Down arrow
+                case 208:
                     if (selectedIndex < currentCommands.Size() - 1) selectedIndex++;
                     return true;
                     
-                case 28: // Enter
+                case 28:
                     if (selectedIndex >= 0 && selectedIndex < currentCommands.Size())
                     {
                         CommandHandler.ExecuteCommand(currentCommands[selectedIndex]);
@@ -71,11 +66,11 @@ class CheatPanelMenu : GenericMenu
                     }
                     return true;
                     
-                case 203: // Left arrow
+                case 203:
                     SwitchToPreviousCategory();
                     return true;
                     
-                case 205: // Right arrow
+                case 205:
                     SwitchToNextCategory();
                     return true;
             }

@@ -2,10 +2,10 @@
 
 struct CheatCommand
 {
-    String id;           // Command ID
-    String displayName;  // Display name in menu
-    String category;     // Category (BASIC, WEAPONS, MONSTERS, etc)
-    String command;      // Command to execute
+    String id;
+    String displayName;
+    String category;
+    String command;
 }
 
 class CommandHandler
@@ -13,7 +13,6 @@ class CommandHandler
     static Array<CheatCommand> commands;
     static bool initialized = false;
 
-    // Add a new command
     static void AddCommand(String id, String displayName, String category, String command)
     {
         CheatCommand cmd;
@@ -25,18 +24,16 @@ class CommandHandler
         commands.Push(cmd);
     }
 
-    // Execute command
     static void ExecuteCommand(int index)
     {
         if (index >= 0 && index < commands.Size())
         {
             String cmd = commands[index].command;
-            Console.MidPrint("Verdana", "Executing: " .. cmd, false);
+            Console.MidPrint("Verdana", "Executing: "..cmd, false);
             C_DoCommand(cmd);
         }
     }
 
-    // Get all commands for a category
     static Array<int> GetCommandsByCategory(String category)
     {
         Array<int> result;
@@ -52,7 +49,6 @@ class CommandHandler
         return result;
     }
 
-    // Get all unique categories
     static Array<String> GetAllCategories()
     {
         Array<String> categories;
@@ -80,7 +76,6 @@ class CommandHandler
         return categories;
     }
 
-    // Initialize commands
     static void Initialize()
     {
         if (!initialized)
@@ -90,7 +85,6 @@ class CommandHandler
         }
     }
 
-    // Get command by index
     static CheatCommand GetCommand(int index)
     {
         if (index >= 0 && index < commands.Size())
@@ -102,7 +96,6 @@ class CommandHandler
         return empty;
     }
 
-    // Get total commands count
     static int GetCommandCount()
     {
         return commands.Size();
