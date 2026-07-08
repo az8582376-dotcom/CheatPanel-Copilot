@@ -11,7 +11,7 @@ struct CheatCommand
 class CommandHandler
 {
     static Array<CheatCommand> commands;
-    static bool initialized = false;
+    static bool initialized;
 
     static void AddCommand(String id, String displayName, String category, String command)
     {
