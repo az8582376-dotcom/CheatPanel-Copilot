@@ -24,7 +24,7 @@ class CheatMenuUI
         Screen.DrawText(SmallFont, Font.CR_YELLOW, panelX + MARGIN, panelY + 10, title);
 
         int yPos = panelY + 50;
-        for (int i = 0; i < menu.currentCommands.Size() && i < 12; i++)
+        for (int i = 0; i < menu.currentCommandCount && i < 12; i++)
         {
             int cmdIndex = menu.currentCommands[i];
             CheatCommand cmd = CommandHandler.GetCommand(cmdIndex);
