@@ -24,7 +24,7 @@ class CheatMenuUI
         Screen.Clear(panelX + 3, panelY + 3, PANEL_WIDTH - 6, PANEL_HEIGHT - 6, Color(30, 30, 30));
 
         // Draw title
-        String title = "CHEAT PANEL - Category: " .. menu.currentCategory;
+        String title = "CHEAT PANEL - Category: "..menu.currentCategory;
         Screen.DrawText(SmallFont, Font.CR_YELLOW, panelX + MARGIN, panelY + 10, title);
 
         // Draw commands
