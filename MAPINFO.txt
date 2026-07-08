@@ -1,0 +1,9 @@
+// GZDoom MAPINFO for CheatPanel mod
+
+gameinfo
+{
+    Title = "CheatPanel - Cheat Menu Mod"
+    Author = "CheatPanel Copilot"
+    Version = "1.0"
+    Music = "$MUSIC"
+}
